@@ -4,6 +4,7 @@ import ccxt from "ccxt";
 import { useState } from "react";
 import { chunk } from "./utils/helper.js";
 import { cn } from "./utils/cn.js";
+import ModernTicker from "./layouts/ModernTicker.jsx";
 
 const coins = [
   {
@@ -109,8 +110,8 @@ function App() {
   const [exchange] = useState(() => new ccxt.pro.binance());
 
   return (
-    <div>
-      <div className="relative flex h-[500px] w-screen flex-col items-center justify-center overflow-hidden rounded-lg border bg-white md:shadow-xl">
+    <div className="">
+      <div className="relative flex h-[256px] w-screen flex-col justify-center items-center overflow-hidden">
         {chunkedCoins.map((coins, index) => (
           <Marquee
             key={index}
@@ -124,9 +125,8 @@ function App() {
             ))}
           </Marquee>
         ))}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-[5%] bg-gradient-to-r from-white from-50%"></div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-[5%] h-full bg-gradient-to-l from-white from-50%"></div>
       </div>
+      {/*<ModernTicker exchange={exchange} chunkedCoins={chunkedCoins} />*/}
     </div>
   );
 }

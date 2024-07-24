@@ -13,17 +13,23 @@ export const Card = ({ exchange, img, symbol }) => {
           const ticker = await exchange.watchTicker(symbol);
 
           priceEl.current.textContent = `$ ${exchange.priceToPrecision(symbol, ticker.close)}`;
-          priceEl.current.className =
+          priceEl.current.style.color =
             ticker.previousClose > ticker.close
-              ? "text-green-600"
+              ? "green"
               : ticker.previousClose < ticker.close
-                ? "text-red-600"
-                : "text-black";
+                ? "red"
+                : "grey";
           iconEl.current.className =
             ticker.previousClose > ticker.close
-              ? "icon-[fa-solid--caret-up] text-green-600"
+              ? "icon-[fa-solid--caret-up]"
               : ticker.previousClose < ticker.close
-                ? "icon-[fa-solid--caret-down] text-red-600"
+                ? "icon-[fa-solid--caret-down]"
+                : "";
+          iconEl.current.style.color =
+            ticker.previousClose > ticker.close
+              ? "green"
+              : ticker.previousClose < ticker.close
+                ? "red"
                 : "";
 
           if (!cardEl.current.classList.contains("fade-in")) {
@@ -43,11 +49,15 @@ export const Card = ({ exchange, img, symbol }) => {
   return (
     <figure
       ref={cardEl}
-      className={cn("relative w-64 cursor-pointer overflow-hidden p-4")}
+      className={cn(
+        "relative w-[300px] h-[64px] cursor-pointer overflow-hidden p-4",
+      )}
     >
       <div className="font-medium flex flex-row items-center gap-2">
         <img className="rounded-full" width="32" height="32" alt="" src={img} />
-        <span className="uppercase">{symbol.split("/")[0]}:</span>
+        <span className="uppercase" style={{ color: "white" }}>
+          {symbol.split("/")[0]}:
+        </span>
         <div className="flex items-center gap-2">
           <p ref={priceEl}></p>
           <span ref={iconEl} className="w-4 h-4"></span>

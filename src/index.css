@@ -4,6 +4,14 @@
 
 @layer base {
     body {
+        background-color: black;
+        height: 256px;
+        max-width: 160rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #modern {
         display: grid;
         place-items: center;
         min-height: 100vh;
@@ -12,7 +20,7 @@
         overflow-x: hidden;
     }
 
-    body::before {
+    #modern::before {
         --size: 45px;
         --line: color-mix(in lch, canvasText, transparent 80%);
         content: '';
