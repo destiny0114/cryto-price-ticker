@@ -8,38 +8,36 @@ export const Card = ({ exchange, img, symbol }) => {
 
   useEffect(() => {
     const pollTickerContinuously = async (exchange, symbol) => {
-      while (exchange) {
-        try {
-          const ticker = await exchange.watchTicker(symbol);
-          priceEl.current.textContent = `$ ${exchange.priceToPrecision(symbol, ticker.close)}`;
-          priceEl.current.style.color =
-            ticker.previousClose > ticker.close
-              ? "green"
-              : ticker.previousClose < ticker.close
-                ? "red"
-                : "grey";
-          iconEl.current.className =
-            ticker.previousClose > ticker.close
-              ? "icon-[fa-solid--caret-up]"
-              : ticker.previousClose < ticker.close
-                ? "icon-[fa-solid--caret-down]"
-                : "";
-          iconEl.current.style.color =
-            ticker.previousClose > ticker.close
-              ? "green"
-              : ticker.previousClose < ticker.close
-                ? "red"
-                : "";
+      try {
+        const ticker = await exchange.watchTicker(symbol);
+        priceEl.current.textContent = `$ ${exchange.priceToPrecision(symbol, ticker.close)}`;
+        priceEl.current.style.color =
+          ticker.previousClose > ticker.close
+            ? "green"
+            : ticker.previousClose < ticker.close
+              ? "red"
+              : "grey";
+        iconEl.current.className =
+          ticker.previousClose > ticker.close
+            ? "icon-[fa-solid--caret-up]"
+            : ticker.previousClose < ticker.close
+              ? "icon-[fa-solid--caret-down]"
+              : "";
+        iconEl.current.style.color =
+          ticker.previousClose > ticker.close
+            ? "green"
+            : ticker.previousClose < ticker.close
+              ? "red"
+              : "";
 
-          if (!cardEl.current.classList.contains("fade-in")) {
-            cardEl.current.classList.add("fade-in");
-          }
-
-          await exchange.sleep(100);
-        } catch (e) {
-          priceEl.current.textContent = "Symbol Error";
-          priceEl.current.style.color = "white";
+        if (!cardEl.current.classList.contains("fade-in")) {
+          cardEl.current.classList.add("fade-in");
         }
+
+        await exchange.sleep(100);
+      } catch (e) {
+        priceEl.current.textContent = "Symbol Error";
+        priceEl.current.style.color = "white";
       }
     };
 
