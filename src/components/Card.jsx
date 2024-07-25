@@ -11,7 +11,6 @@ export const Card = ({ exchange, img, symbol }) => {
       while (exchange) {
         try {
           const ticker = await exchange.watchTicker(symbol);
-
           priceEl.current.textContent = `$ ${exchange.priceToPrecision(symbol, ticker.close)}`;
           priceEl.current.style.color =
             ticker.previousClose > ticker.close
