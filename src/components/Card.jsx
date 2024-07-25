@@ -9,7 +9,7 @@ export const Card = ({ exchange, img, symbol }) => {
   useEffect(() => {
     const pollTickerContinuously = async (exchange, symbol) => {
       try {
-        const ticker = await exchange.watchTicker(symbol);
+        const ticker = await exchange.fetchTicker(symbol);
         priceEl.current.textContent = `$ ${exchange.priceToPrecision(symbol, ticker.close)}`;
         priceEl.current.style.color =
           ticker.previousClose > ticker.close
