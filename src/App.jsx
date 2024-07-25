@@ -111,9 +111,8 @@ function App() {
 
   return (
     <div className="">
+      <Card exchange={exchange} {...coins[1]} />
       <div className="relative flex h-[256px] w-screen flex-col justify-center items-center overflow-hidden">
-        <Card exchange={exchange} {...coins[1]} />
-
         {/*{chunkedCoins.map((coins, index) => (*/}
         {/*  <Marquee*/}
         {/*    key={index}*/}
