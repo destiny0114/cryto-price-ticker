@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        background-color: black;
+        background-color: #E9EFF2;
         height: 256px;
         max-width: 160rem;
         display: flex;
