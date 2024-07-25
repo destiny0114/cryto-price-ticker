@@ -36,9 +36,8 @@ export const Card = ({ exchange, img, symbol }) => {
 
         await exchange.sleep(100);
       } catch (e) {
-        throw new Error(e);
-        // priceEl.current.textContent = e;
-        // priceEl.current.style.color = "white";
+        priceEl.current.textContent = e;
+        priceEl.current.style.color = "white";
       }
     };
 
@@ -48,9 +47,7 @@ export const Card = ({ exchange, img, symbol }) => {
   return (
     <div
       ref={cardEl}
-      className={cn(
-        "relative w-[300px] h-[64px] cursor-pointer overflow-hidden p-4",
-      )}
+      className={cn("relative cursor-pointer overflow-hidden p-4")}
     >
       <div className="font-medium flex flex-row items-center gap-2">
         <img className="rounded-full" width="32" height="32" alt="" src={img} />
