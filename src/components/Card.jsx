@@ -47,7 +47,7 @@ export const Card = ({ exchange, img, symbol }) => {
   }, []);
 
   return (
-    <figure
+    <div
       ref={cardEl}
       className={cn(
         "relative w-[300px] h-[64px] cursor-pointer overflow-hidden p-4",
@@ -63,6 +63,6 @@ export const Card = ({ exchange, img, symbol }) => {
           <span ref={iconEl} className="w-4 h-4"></span>
         </div>
       </div>
-    </figure>
+    </div>
   );
 };
