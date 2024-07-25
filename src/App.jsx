@@ -112,19 +112,21 @@ function App() {
   return (
     <div className="">
       <div className="relative flex h-[256px] w-screen flex-col justify-center items-center overflow-hidden">
-        {chunkedCoins.map((coins, index) => (
-          <Marquee
-            key={index}
-            className={cn(
-              "[--duration:20s] [--gap:2rem]",
-              index % 2 && "translate-x-[15%]",
-            )}
-          >
-            {coins.map((coin) => (
-              <Card key={coin.symbol} exchange={exchange} {...coin} />
-            ))}
-          </Marquee>
-        ))}
+        <Card exchange={exchange} {...coins[1]} />
+
+        {/*{chunkedCoins.map((coins, index) => (*/}
+        {/*  <Marquee*/}
+        {/*    key={index}*/}
+        {/*    className={cn(*/}
+        {/*      "[--duration:20s] [--gap:2rem]",*/}
+        {/*      index % 2 && "translate-x-[15%]",*/}
+        {/*    )}*/}
+        {/*  >*/}
+        {/*    {coins.map((coin) => (*/}
+        {/*      <Card key={coin.symbol} exchange={exchange} {...coin} />*/}
+        {/*    ))}*/}
+        {/*  </Marquee>*/}
+        {/*))}*/}
       </div>
       {/*<ModernTicker exchange={exchange} chunkedCoins={chunkedCoins} />*/}
     </div>
