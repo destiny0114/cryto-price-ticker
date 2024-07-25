@@ -36,9 +36,8 @@ export const Card = ({ exchange, img, symbol }) => {
 
         await exchange.sleep(100);
       } catch (e) {
-        throw new Error(e);
-        // priceEl.current.textContent = e;
-        // priceEl.current.style.color = "white";
+        priceEl.current.textContent = e;
+        priceEl.current.style.color = "white";
       }
     };
 
