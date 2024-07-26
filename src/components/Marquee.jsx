@@ -20,7 +20,7 @@ export default function Marquee({ exchange, symbols, id }) {
     pollTickerContinuously(exchange, symbols);
     setInterval(() => {
       pollTickerContinuously(exchange, symbols);
-    }, 20000);
+    }, 10000);
   }, []);
 
   useEffect(() => {
