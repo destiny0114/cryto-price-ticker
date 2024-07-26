@@ -1,133 +1,21 @@
 import Marquee from "./components/Marquee.jsx";
-import { Card } from "./components/Card.jsx";
 import ccxt from "ccxt";
 import { useState } from "react";
 import { chunk } from "./utils/helper.js";
-import { cn } from "./utils/cn.js";
-import ModernTicker from "./layouts/ModernTicker.jsx";
 
-const coins = [
-  {
-    img: "https://crypto-rss.nmor.my/img/link.png",
-    symbol: "LINK/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/btc.png",
-    symbol: "BTC/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/eth.png",
-    symbol: "ETH/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/stx.png",
-    symbol: "STX/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/bch.png",
-    symbol: "BCH/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/ltc.png",
-    symbol: "LTC/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/aave.png",
-    symbol: "AAVE/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/ada.png",
-    symbol: "ADA/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/bnb.png",
-    symbol: "BNB/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/sol.png",
-    symbol: "SOL/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/xrp.png",
-    symbol: "XRP/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/dot.png",
-    symbol: "DOT/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/ltc.png",
-    symbol: "LTC/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/ton.png",
-    symbol: "TON/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/doge.png",
-    symbol: "DOGE/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/avax.png",
-    symbol: "AVAX/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/trx.png",
-    symbol: "TRX/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/shib.png",
-    symbol: "SHIB/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/etc.png",
-    symbol: "ETC/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/xlm.png",
-    symbol: "XLM/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/wbtc.png",
-    symbol: "WBTC/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/wif.png",
-    symbol: "WIF/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/pepe.png",
-    symbol: "PEPE/USDT",
-  },
-  {
-    img: "https://crypto-rss.nmor.my/img/fil.png",
-    symbol: "FIL/USDT",
-  },
-];
+const coins = ["LINK/USDT", "BTC/USDT", "ETH/USDT", "STX/USDT", "BCH/USDT", "LTC/USDT", "AAVE/USDT", "ADA/USDT", "BNB/USDT", "SOL/USDT", "XRP/USDT", "DOT/USDT", "LTC/USDT", "NEAR/USDT", "DOGE/USDT", "AVAX/USDT", "TRX/USDT", "SHIB/USDT", "ETC/USDT", "XLM/USDT", "WBTC/USDT", "WIF/USDT", "PEPE/USDT", "FIL/USDT", "ENS/USDT", "EOS/USDT", "GALA/USDT", "GRT/USDT", "ICP/USDT", "ALGO/USDT", "AXS/USDT", "JUP/USDT", "UNI/USDT", "OP/USDT", "RUNE/USDT", "SUI/USDT", "SEI/USDT", "HBAR/USDT", "VET/USDT", "MATIC/USDT"];
 
-const chunkedCoins = chunk(coins, 6);
+const chunkedCoins = chunk(coins, 10);
+
 function App() {
   const [exchange] = useState(() => new ccxt.pro.binance());
 
   return (
-    <div className="">
-      <Card exchange={exchange} {...coins[1]} />
-      <div className="relative flex h-[256px] w-screen flex-col justify-center items-center overflow-hidden">
-        {/*{chunkedCoins.map((coins, index) => (*/}
-        {/*  <Marquee*/}
-        {/*    key={index}*/}
-        {/*    className={cn(*/}
-        {/*      "[--duration:20s] [--gap:2rem]",*/}
-        {/*      index % 2 && "translate-x-[15%]",*/}
-        {/*    )}*/}
-        {/*  >*/}
-        {/*    {coins.map((coin) => (*/}
-        {/*      <Card key={coin.symbol} exchange={exchange} {...coin} />*/}
-        {/*    ))}*/}
-        {/*  </Marquee>*/}
-        {/*))}*/}
-      </div>
-      {/*<ModernTicker exchange={exchange} chunkedCoins={chunkedCoins} />*/}
+    <div className="body__inner-wrapper">
+      <Marquee exchange={exchange} symbols={chunkedCoins[0]} id="marquee__inner" />
+      <Marquee exchange={exchange} symbols={chunkedCoins[1]} id="marquee__inner2" />
+      <Marquee exchange={exchange} symbols={chunkedCoins[2]} id="marquee__inner3" />
+      <Marquee exchange={exchange} symbols={chunkedCoins[3]} id="marquee__inner4" />
     </div>
   );
 }

@@ -1,41 +1,63 @@
-import { cn } from "../utils/cn.js";
+import { useState, useRef, useEffect } from "react";
+import { Card } from "./Card";
 
-export default function Marquee({
-  className,
-  reverse,
-  pauseOnHover = false,
-  children,
-  vertical = false,
-  repeat = 4,
-  ...props
-}) {
+export default function Marquee({ exchange, symbols, id }) {
+  const [results, setResults] = useState([]);
+  const marquee = useRef(null);
+
+  useEffect(() => {
+    const pollTickerContinuously = async (exchange, symbols) => {
+      try {
+        const tickers = await exchange.fetchTickers(symbols);
+        console.log(symbols);
+        console.log(tickers);
+        setResults(tickers);
+      } catch {
+        // priceEl.current.innerHTML = "Symbol Error";
+      }
+    };
+
+    pollTickerContinuously(exchange, symbols);
+    setInterval(() => {
+      pollTickerContinuously(exchange, symbols);
+    }, 20000);
+  }, []);
+
+  useEffect(() => {
+    if (!id) return;
+    const checkIfMarqueeIsOffScreen = (marqueeRef) => {
+      const marquee = marqueeRef.current;
+      if (marquee) {
+        const firstSpan = marquee.querySelector("div");
+        if (firstSpan) {
+          const rect = firstSpan.getBoundingClientRect();
+          if (rect.left <= 0) {
+            marquee.style.transform = "translateX(0)";
+            marquee.style.animation = `marquee 20s linear infinite`;
+          }
+        }
+      }
+    };
+
+    const interval = setInterval(() => checkIfMarqueeIsOffScreen(marquee), 100);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
-    <div
-      {...props}
-      className={cn(
-        "group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]",
-        {
-          "flex-row": !vertical,
-          "flex-col": vertical,
-        },
-        className,
-      )}
-    >
-      {Array(repeat)
-        .fill(0)
-        .map((_, i) => (
-          <div
-            key={i}
-            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
-            })}
-          >
-            {children}
-          </div>
-        ))}
+    <div className="marquee">
+      <div className="marquee__inner-wrap">
+        <div ref={marquee} className={id}>
+          {Object.entries(results).map(([symbol, ticker]) => (
+            <Card key={symbol} exchange={exchange} symbol={symbol} ticker={ticker} />
+          ))}
+          {Object.entries(results).map(([symbol, ticker]) => (
+            <Card key={symbol} exchange={exchange} symbol={symbol} ticker={ticker} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
