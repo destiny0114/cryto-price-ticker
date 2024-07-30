@@ -1,21 +1,159 @@
 import Marquee from "./components/Marquee.jsx";
 import ccxt from "ccxt";
-import { useState } from "react";
-import { chunk } from "./utils/helper.js";
+import { useState, useEffect } from "react";
+import { Card } from "./components/Card";
 
-const coins = ["LINK/USDT", "BTC/USDT", "ETH/USDT", "STX/USDT", "BCH/USDT", "LTC/USDT", "AAVE/USDT", "ADA/USDT", "BNB/USDT", "SOL/USDT", "XRP/USDT", "DOT/USDT", "LTC/USDT", "NEAR/USDT", "DOGE/USDT", "AVAX/USDT", "TRX/USDT", "SHIB/USDT", "ETC/USDT", "XLM/USDT", "WBTC/USDT", "WIF/USDT", "PEPE/USDT", "FIL/USDT", "ENS/USDT", "EOS/USDT", "GALA/USDT", "GRT/USDT", "ICP/USDT", "ALGO/USDT", "AXS/USDT", "JUP/USDT", "UNI/USDT", "OP/USDT", "RUNE/USDT", "SUI/USDT", "SEI/USDT", "HBAR/USDT", "VET/USDT", "MATIC/USDT"];
-
-const chunkedCoins = chunk(coins, 10);
+const coins = [
+  "LINK/USDT",
+  "BTC/USDT",
+  "ETH/USDT",
+  "STX/USDT",
+  "BCH/USDT",
+  "LTC/USDT",
+  "AAVE/USDT",
+  "ADA/USDT",
+  "BNB/USDT",
+  "SOL/USDT",
+  "XRP/USDT",
+  "DOT/USDT",
+  "NEAR/USDT",
+  "DOGE/USDT",
+  "AVAX/USDT",
+  "TRX/USDT",
+  "SHIB/USDT",
+  "ETC/USDT",
+  "XLM/USDT",
+  "WBTC/USDT",
+  "WIF/USDT",
+  "PEPE/USDT",
+  "FIL/USDT",
+  "ENS/USDT",
+  "EOS/USDT",
+  "GALA/USDT",
+  "GRT/USDT",
+  "ICP/USDT",
+  "ALGO/USDT",
+  "AXS/USDT",
+  "JUP/USDT",
+  "UNI/USDT",
+  "OP/USDT",
+  "RUNE/USDT",
+  "SUI/USDT",
+  "SEI/USDT",
+  "HBAR/USDT",
+  "VET/USDT",
+  "MATIC/USDT",
+  "ZEC/USDT",
+  "SUSHI/USDT",
+  "YFI/USDT",
+  "SNX/USDT",
+  "CHZ/USDT",
+  "EGLD/USDT",
+  "DCR/USDT",
+  "OM/USDT",
+  "WBETH/USDT",
+  "COTI/USDT",
+  "MTL/USDT",
+];
 
 function App() {
+  const [results, setResults] = useState(null);
   const [exchange] = useState(() => new ccxt.pro.binance());
+
+  useEffect(() => {
+    const pollTickerContinuously = async (exchange, symbols) => {
+      try {
+        const tickers = await exchange.fetchTickers(symbols);
+        setResults(tickers);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    pollTickerContinuously(exchange, coins);
+    setInterval(() => {
+      pollTickerContinuously(exchange, coins);
+    }, 20000);
+  }, []);
 
   return (
     <div className="body__inner-wrapper">
-      <Marquee exchange={exchange} symbols={chunkedCoins[0]} id="marquee__inner" />
-      <Marquee exchange={exchange} symbols={chunkedCoins[1]} id="marquee__inner2" />
-      <Marquee exchange={exchange} symbols={chunkedCoins[2]} id="marquee__inner3" />
-      <Marquee exchange={exchange} symbols={chunkedCoins[3]} id="marquee__inner4" />
+      {results && (
+        <>
+          <Marquee id="marquee__inner">
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+          </Marquee>
+          <Marquee id="marquee__inner2">
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+          </Marquee>
+          <Marquee id="marquee__inner3">
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+          </Marquee>
+          <Marquee id="marquee__inner4">
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+          </Marquee>
+        </>
+      )}
     </div>
   );
 }

@@ -1,27 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-import { Card } from "./Card";
+import { useRef, useEffect } from "react";
 
-export default function Marquee({ exchange, symbols, id }) {
-  const [results, setResults] = useState([]);
+export default function Marquee({ children, id }) {
   const marquee = useRef(null);
-
-  useEffect(() => {
-    const pollTickerContinuously = async (exchange, symbols) => {
-      try {
-        const tickers = await exchange.fetchTickers(symbols);
-        console.log(symbols);
-        console.log(tickers);
-        setResults(tickers);
-      } catch {
-        // priceEl.current.innerHTML = "Symbol Error";
-      }
-    };
-
-    pollTickerContinuously(exchange, symbols);
-    setInterval(() => {
-      pollTickerContinuously(exchange, symbols);
-    }, 5000);
-  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -33,7 +13,7 @@ export default function Marquee({ exchange, symbols, id }) {
           const rect = firstSpan.getBoundingClientRect();
           if (rect.left <= 0) {
             marquee.style.transform = "translateX(0)";
-            marquee.style.animation = `marquee 20s linear infinite`;
+            marquee.style.animation = `marquee 60s linear infinite`;
           }
         }
       }
@@ -50,12 +30,7 @@ export default function Marquee({ exchange, symbols, id }) {
     <div className="marquee">
       <div className="marquee__inner-wrap">
         <div ref={marquee} className={id}>
-          {Object.entries(results).map(([symbol, ticker]) => (
-            <Card key={symbol} exchange={exchange} symbol={symbol} ticker={ticker} />
-          ))}
-          {Object.entries(results).map(([symbol, ticker]) => (
-            <Card key={symbol} exchange={exchange} symbol={symbol} ticker={ticker} />
-          ))}
+          {children}
         </div>
       </div>
     </div>

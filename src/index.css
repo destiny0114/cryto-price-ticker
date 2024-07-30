@@ -32,7 +32,7 @@
     align-items: center;
     display: flex;
     position: relative;
-    animation: marquee 20s linear infinite;
+    animation: marquee 60s linear infinite;
     will-change: transform;
   }
 
@@ -42,7 +42,7 @@
     align-items: center;
     display: flex;
     position: relative;
-    animation: marquee2 45s linear infinite;
+    animation: marquee2 75s linear infinite;
     will-change: transform;
     transform: translateX(2560px);
   }
@@ -53,7 +53,7 @@
     align-items: center;
     display: flex;
     position: relative;
-    animation: marquee3 70s linear infinite;
+    animation: marquee3 90s linear infinite;
     will-change: transform;
     transform: translateX(5120px);
   }
@@ -64,7 +64,7 @@
     align-items: center;
     display: flex;
     position: relative;
-    animation: marquee4 95s linear infinite;
+    animation: marquee4 105s linear infinite;
     will-change: transform;
     transform: translateX(7680px);
   }
@@ -72,24 +72,24 @@
 
 @keyframes marquee {
   to {
-    transform: translateX(-3000px);
+    transform: translateX(-15000px);
   }
 }
 
 @keyframes marquee2 {
   to {
-    transform: translateX(-4280px);
+    transform: translateX(-16280px);
   }
 }
 
 @keyframes marquee3 {
   to {
-    transform: translateX(-5560px);
+    transform: translateX(-17560px);
   }
 }
 
 @keyframes marquee4 {
   to {
-    transform: translateX(-6840px);
+    transform: translateX(-18840px);
   }
 }
