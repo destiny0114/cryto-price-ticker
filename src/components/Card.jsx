@@ -1,20 +1,20 @@
 import { cn } from "../utils/cn.js";
 
-export const Card = ({ exchange, symbol, ticker }) => {
+export const Card = ({ exchange, symbol, ticker, hidden }) => {
   return (
     <div
       className={cn(
         "w-[300px] flex justify-center items-center cursor-pointer overflow-hidden text-[1rem]",
-        symbol === "FIL/USDT" && "bg-red-600",
       )}
+      aria-hidden={hidden ?? undefined}
     >
       <div className="font-medium flex flex-row items-center gap-2">
         <img
-          className="rounded-full"
+          className="rounded-full mr-2"
           width="32"
           height="32"
           alt=""
-          src={`https://crypto-rss.nmor.my/img/${symbol.split("/")[0].toLowerCase()}.png`}
+          src={`/img/${symbol.split("/")[0].toLowerCase()}.png`}
         />
         <span className="uppercase" style={{ color: "white" }}>
           {symbol.split("/")[0]}:

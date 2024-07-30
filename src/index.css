@@ -32,64 +32,65 @@
     align-items: center;
     display: flex;
     position: relative;
-    animation: marquee 60s linear infinite;
+    animation: marquee 140s linear infinite;
     will-change: transform;
   }
 
-  .marquee__inner2 {
-    height: 100%;
-    width: fit-content;
-    align-items: center;
-    display: flex;
-    position: relative;
-    animation: marquee2 75s linear infinite;
-    will-change: transform;
+  #marquee__container2 .marquee__inner-wrap {
     transform: translateX(2560px);
+    animation: slideIn 19s linear forwards;
   }
 
-  .marquee__inner3 {
-    height: 100%;
-    width: fit-content;
-    align-items: center;
-    display: flex;
-    position: relative;
-    animation: marquee3 90s linear infinite;
-    will-change: transform;
+  #marquee__container2 .marquee__inner {
+    animation-delay: 19s;
+  }
+
+  #marquee__container3 .marquee__inner-wrap {
     transform: translateX(5120px);
+    animation: slideIn 38s linear forwards;
   }
 
-  .marquee__inner4 {
-    height: 100%;
-    width: fit-content;
-    align-items: center;
-    display: flex;
-    position: relative;
-    animation: marquee4 105s linear infinite;
-    will-change: transform;
+  #marquee__container3 .marquee__inner {
+    animation-delay: 38s;
+  }
+
+  #marquee__container4 .marquee__inner-wrap {
     transform: translateX(7680px);
+    animation: slideIn 57s linear forwards;
+  }
+
+  #marquee__container4 .marquee__inner {
+    animation-delay: 57s;
+  }
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
   }
 }
 
 @keyframes marquee {
   to {
-    transform: translateX(-15000px);
+    transform: translateX(-50%);
+    /* transform: translateX(-18900px); */
   }
 }
 
 @keyframes marquee2 {
   to {
-    transform: translateX(-16280px);
+    transform: translateX(-20180px);
   }
 }
 
 @keyframes marquee3 {
   to {
-    transform: translateX(-17560px);
+    transform: translateX(-21460px);
   }
 }
 
 @keyframes marquee4 {
   to {
-    transform: translateX(-18840px);
+    transform: translateX(-22740px);
   }
 }

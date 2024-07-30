@@ -54,6 +54,19 @@ const coins = [
   "WBETH/USDT",
   "COTI/USDT",
   "MTL/USDT",
+  "APT/USDT",
+  "FET/USDT",
+  "RENDER/USDT",
+  "ATOM/USDT",
+  "TAO/USDT",
+  "ARB/USDT",
+  "IMX/USDT",
+  "INJ/USDT",
+  "FDUSD/USDT",
+  "AR/USDT",
+  "NOT/USDT",
+  "JASMY/USDT",
+  "FLOKI/USDT",
 ];
 
 function App() {
@@ -73,14 +86,14 @@ function App() {
     pollTickerContinuously(exchange, coins);
     setInterval(() => {
       pollTickerContinuously(exchange, coins);
-    }, 20000);
+    }, 5000);
   }, []);
 
   return (
     <div className="body__inner-wrapper">
       {results && (
         <>
-          <Marquee id="marquee__inner">
+          <Marquee id="marquee__container">
             {Object.entries(results).map(([symbol, ticker]) => (
               <Card
                 key={symbol}
@@ -95,28 +108,11 @@ function App() {
                 exchange={exchange}
                 symbol={symbol}
                 ticker={ticker}
-              />
-            ))}
-          </Marquee>
-          <Marquee id="marquee__inner2">
-            {Object.entries(results).map(([symbol, ticker]) => (
-              <Card
-                key={symbol}
-                exchange={exchange}
-                symbol={symbol}
-                ticker={ticker}
-              />
-            ))}
-            {Object.entries(results).map(([symbol, ticker]) => (
-              <Card
-                key={symbol}
-                exchange={exchange}
-                symbol={symbol}
-                ticker={ticker}
+                hidden
               />
             ))}
           </Marquee>
-          <Marquee id="marquee__inner3">
+          <Marquee id="marquee__container2">
             {Object.entries(results).map(([symbol, ticker]) => (
               <Card
                 key={symbol}
@@ -131,10 +127,11 @@ function App() {
                 exchange={exchange}
                 symbol={symbol}
                 ticker={ticker}
+                hidden
               />
             ))}
           </Marquee>
-          <Marquee id="marquee__inner4">
+          <Marquee id="marquee__container3">
             {Object.entries(results).map(([symbol, ticker]) => (
               <Card
                 key={symbol}
@@ -149,6 +146,26 @@ function App() {
                 exchange={exchange}
                 symbol={symbol}
                 ticker={ticker}
+                hidden
+              />
+            ))}
+          </Marquee>
+          <Marquee id="marquee__container4">
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+              />
+            ))}
+            {Object.entries(results).map(([symbol, ticker]) => (
+              <Card
+                key={symbol}
+                exchange={exchange}
+                symbol={symbol}
+                ticker={ticker}
+                hidden
               />
             ))}
           </Marquee>
