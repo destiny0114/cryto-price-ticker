@@ -1,6 +1,6 @@
 import Marquee from "./components/Marquee.jsx";
 import ccxt from "ccxt";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDeferredValue } from "react";
 import { Card } from "./components/Card";
 
 const coins = [
@@ -70,101 +70,118 @@ const coins = [
 ];
 
 function App() {
-  const [results, setResults] = useState(null);
+  const [data, setData] = useState(null);
+  const deferredData = useDeferredValue(data);
+
   const [exchange] = useState(() => new ccxt.pro.binance());
 
   useEffect(() => {
-    const pollTickerContinuously = async (exchange, symbols) => {
-      try {
-        const tickers = await exchange.fetchTickers(symbols);
-        setResults(tickers);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    exchange.streaming["id"] = 1;
 
-    pollTickerContinuously(exchange, coins);
-    setInterval(() => {
-      pollTickerContinuously(exchange, coins);
-    }, 5000);
+    exchange.streaming["timeout"] = 100000;
+    async function watchTickerLoop(exchange, symbols) {
+      let loop = true;
+
+      while (loop) {
+        try {
+          const data = await exchange.watchTickers(symbols);
+          const [[symbol, ticker]] = Object.entries(data);
+
+          setData((prevTickers) => ({
+            ...prevTickers,
+            [symbol]: ticker,
+          }));
+        } catch (e) {
+          console.error(e);
+          loop = false;
+        }
+      }
+    }
+
+    async function main() {
+      await watchTickerLoop(exchange, coins);
+      await exchange.close();
+    }
+
+    main();
   }, []);
 
   return (
     <div className="body__inner-wrapper">
-      {results && (
+      {deferredData && (
         <>
           <Marquee id="marquee__container">
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
               />
             ))}
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
                 hidden
               />
             ))}
           </Marquee>
           <Marquee id="marquee__container2">
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
               />
             ))}
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
                 hidden
               />
             ))}
           </Marquee>
           <Marquee id="marquee__container3">
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
               />
             ))}
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
                 hidden
               />
             ))}
           </Marquee>
           <Marquee id="marquee__container4">
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
               />
             ))}
-            {Object.entries(results).map(([symbol, ticker]) => (
+            {coins.map((symbol) => (
               <Card
                 key={symbol}
                 exchange={exchange}
                 symbol={symbol}
-                ticker={ticker}
+                ticker={deferredData[symbol]}
                 hidden
               />
             ))}
