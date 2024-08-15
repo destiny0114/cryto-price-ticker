@@ -76,9 +76,6 @@ function App() {
   const [exchange] = useState(() => new ccxt.pro.binance());
 
   useEffect(() => {
-    exchange.streaming["id"] = 1;
-
-    exchange.streaming["timeout"] = 100000;
     async function watchTickerLoop(exchange, symbols) {
       let loop = true;
 

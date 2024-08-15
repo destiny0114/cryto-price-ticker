@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 !/src/index.css
+
+# Million Lint
+.million
